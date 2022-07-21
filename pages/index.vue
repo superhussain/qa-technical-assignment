@@ -1,5 +1,5 @@
 <script setup>
-const { data } = await useFetch(() => '/api/campaigns');
+const { data } = await useFetch('/api/campaigns');
 </script>
 
 <template>
@@ -14,7 +14,7 @@ const { data } = await useFetch(() => '/api/campaigns');
       />
     </div>
 
-    <code>{{ JSON.stringify(data, null, 2) }}</code>
+    <pre>{{ JSON.stringify(data, null, 2) }}</pre>
   </div>
 </template>
 
