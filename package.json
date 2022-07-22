@@ -4,11 +4,14 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "preview": "nuxt preview"
+    "preview": "nuxt preview",
+    "test": "vitest"
   },
   "devDependencies": {
+    "@nuxt/test-utils-edge": "*",
     "@types/lodash-es": "^4.17.6",
-    "nuxt": "3.0.0-rc.6"
+    "nuxt": "3.0.0-rc.6",
+    "vitest": "^0.18.1"
   },
   "dependencies": {
     "@ngneat/falso": "^6.0.3",
