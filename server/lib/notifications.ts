@@ -6,9 +6,11 @@ import { Notification, NotificationType } from '../../types';
 
 const FILE_PATH = './data-notifications.json';
 
-export function generateNotification(): Notification {
+export function generateNotification(
+  notif: Partial<Notification> = {}
+): Notification {
   const campaigns = getCampaigns();
-  const campaignId = rand(campaigns.map(({ id }) => id));
+  const campaignId = notif?.campaignId || rand(campaigns.map(({ id }) => id));
   const campaign = campaigns.find(({ id }) => id === campaignId);
 
   const allOrgs = getOrgs();
@@ -16,16 +18,23 @@ export function generateNotification(): Notification {
     .filter((org) => org.campaigns.includes(campaignId))
     .map(({ id }) => id);
 
-  const type = rand([
-    'campaign_status_change',
-    'cap_reached',
-  ]) as NotificationType;
+  const type =
+    notif?.type ||
+    (rand([
+      'campaign_status_change',
+      'cap_reached',
+      'application_approved',
+    ]) as NotificationType);
 
   const title = campaign.name;
   const body =
     type === 'campaign_status_change'
       ? `Campaign "${campaign.name}" status changed to "${campaign.status}".`
-      : `Campaign "${campaign.name}" cap reached.`;
+      : type === 'cap_reached'
+      ? `Campaign "${campaign.name}" cap reached.`
+      : type === 'application_approved'
+      ? `You campaign application for "${campaign.name}" was approved!`
+      : '';
 
   const id = randUuid();
   return {
@@ -37,8 +46,9 @@ export function generateNotification(): Notification {
     title,
     body,
     url: `/campaign/${campaignId}`,
-    created: randPastDate().toString(),
+    created: randPastDate().getTime(),
     seenBy: [],
+    ...notif,
   };
 }
 

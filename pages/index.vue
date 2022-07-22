@@ -14,8 +14,6 @@ const { data } = await useFetch('/api/discover');
         :campaign="campaign"
       />
     </div>
-
-    <pre>{{ JSON.stringify(data, null, 2) }}</pre>
   </div>
 </template>
 

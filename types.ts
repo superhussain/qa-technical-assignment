@@ -21,7 +21,10 @@ export interface Org {
   campaigns: string[];
 }
 
-export type NotificationType = 'campaign_status_change' | 'cap_reached';
+export type NotificationType =
+  | 'campaign_status_change'
+  | 'cap_reached'
+  | 'application_approved';
 export type NotificationPriority = 'urgent' | 'normal' | 'low';
 
 export interface Notification {
@@ -33,7 +36,7 @@ export interface Notification {
   title: string;
   body: string;
   url: string;
-  created: string;
+  created: number;
   seenBy?: string[];
   seen?: boolean;
 }

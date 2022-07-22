@@ -1,4 +1,5 @@
 <script setup>
+const { data: auth } = await useAuth();
 const route = useRoute();
 let data = reactive({});
 let pending = ref(false);
@@ -17,6 +18,14 @@ async function getCampaign(id) {
 }
 
 await getCampaign(route.params.id);
+
+async function handleApplyToCampaign() {
+  await $fetch('/api/org', {
+    method: 'put',
+    body: { campaignId: data.id },
+  });
+  await refreshNuxtData();
+}
 </script>
 
 <template>
@@ -27,9 +36,12 @@ await getCampaign(route.params.id);
       <h1>{{ data.name }}</h1>
       <p>{{ data.description }}</p>
 
-      <button>Apply to Campaign</button>
-
-      <pre>{{ JSON.stringify(data, null, 2) }}</pre>
+      <button
+        v-if="!auth.campaigns.includes(data.id)"
+        @click="handleApplyToCampaign"
+      >
+        Apply to Campaign
+      </button>
     </div>
   </div>
 </template>

@@ -5,8 +5,18 @@ const toggleOpen = () => (open.value = !open.value);
 const { data } = await useFetch('/api/notifications');
 const notifications = reactive(data);
 const unreadCount = ref(notifications.value.filter(({ seen }) => !seen).length);
-const unread = computed(() => notifications.value.filter(({ seen }) => !seen));
-const read = computed(() => notifications.value.filter(({ seen }) => seen));
+const unread = computed(() =>
+  notifications.value
+    .filter(({ seen }) => !seen)
+    .sort((a, b) => a.created - b.created)
+    .reverse()
+);
+const read = computed(() =>
+  notifications.value
+    .filter(({ seen }) => seen)
+    .sort((a, b) => a.created - b.created)
+    .reverse()
+);
 
 const handleClickNotif = async (notif) => {
   const data = await $fetch('/api/notification', {
@@ -27,7 +37,7 @@ const handleClickNotif = async (notif) => {
       🔔 <span class="badge">{{ unreadCount }}</span>
     </button>
 
-    <div class="notif-list" :class="{ ['open']: true || open }">
+    <div class="notif-list" :class="{ ['open']: open }">
       <span class="notif-group-title">Unread Notifications</span>
       <NuxtLink
         v-for="notif in unread"
@@ -62,6 +72,7 @@ const handleClickNotif = async (notif) => {
 
 .notif-button {
   margin-right: 0.5rem;
+  position: relative;
 }
 
 .notif-list {
@@ -115,5 +126,15 @@ const handleClickNotif = async (notif) => {
 .notif-body {
   margin: 0;
   margin-top: 0.5rem;
+}
+
+.badge {
+  background: red;
+  position: absolute;
+  color: white;
+  padding: 0.2rem 0.4rem;
+  border-radius: 8px;
+  top: -0.5rem;
+  right: -0.75rem;
 }
 </style>
