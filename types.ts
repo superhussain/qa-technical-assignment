@@ -11,7 +11,7 @@ export interface Campaign {
 }
 
 export type OrgType = 'affiliate' | 'advertiser';
-export type  = 'approved';
+export type OrgStatus = 'approved';
 
 export interface Org {
   id: string;
