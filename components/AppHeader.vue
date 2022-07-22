@@ -1,5 +1,7 @@
 <script setup>
 const { data: auth } = await useAuth();
+const { data: orgs } = await useFetch('/api/orgs');
+const orgId = auth.id;
 </script>
 
 <template>
@@ -13,7 +15,11 @@ const { data: auth } = await useAuth();
 
     <div>
       <button class="notif-button">🔔</button>
-      <button class="org-button">👋 {{ auth.name }}</button>
+      <select class="org-switcher" :value="auth.id">
+        <option v-for="org in orgs" :key="org.id" :value="org.id">
+          {{ org.name }}
+        </option>
+      </select>
     </div>
   </header>
 </template>
@@ -29,5 +35,9 @@ header {
 
 .notif-button {
   margin-right: 0.5rem;
+}
+
+.org-switcher {
+  padding: 0.25rem;
 }
 </style>
