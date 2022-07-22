@@ -42,7 +42,7 @@ export function generateNotification(): Notification {
   };
 }
 
-export function notificationFactory(count = 5) {
+export function notificationFactory(count = 10) {
   const notifications: Notification[] = [];
   for (let i = 0; i < count; i++) {
     notifications.push(generateNotification());

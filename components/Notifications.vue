@@ -2,18 +2,38 @@
 let open = ref(false);
 const toggleOpen = () => (open.value = !open.value);
 const { data: notifications } = await useFetch('/api/notifications');
+const unread = notifications.value.filter(({ seen }) => !seen);
+const read = notifications.value.filter(({ seen }) => seen);
+
+const handleClickNotif = (notif) => {
+  console.log(notif);
+};
 </script>
 
 <template>
   <div class="notif-wrapper">
     <button class="notif-button" @click="toggleOpen">🔔</button>
 
-    <div class="notif-list" :class="{ ['open']: open }">
+    <div class="notif-list" :class="{ ['open']: true || open }">
+      <span class="notif-group-title">Unread Notifications</span>
       <NuxtLink
-        v-for="notif in notifications"
+        v-for="notif in unread"
         :key="notif.id"
         :to="notif.url"
         class="notif-item"
+        @click="handleClickNotif(notif)"
+      >
+        <span class="notif-title">{{ notif.title }}</span>
+        <p class="notif-body">{{ notif.body }}</p>
+      </NuxtLink>
+
+      <span class="notif-group-title">Read Notifications</span>
+      <NuxtLink
+        v-for="notif in read"
+        :key="notif.id"
+        :to="notif.url"
+        class="notif-item"
+        @click="handleClickNotif(notif)"
       >
         <span class="notif-title">{{ notif.title }}</span>
         <p class="notif-body">{{ notif.body }}</p>
@@ -38,6 +58,8 @@ const { data: notifications } = await useFetch('/api/notifications');
   background: white;
   width: 300px;
   max-width: 100%;
+  max-height: 60vh;
+  overflow: auto;
   top: 3.75rem;
   right: 1.5rem;
   border: 1px solid #ddd;
@@ -50,6 +72,15 @@ const { data: notifications } = await useFetch('/api/notifications');
   opacity: 1;
   pointer-events: all;
   transform: translateY(0);
+}
+
+.notif-group-title {
+  display: block;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #ddd;
+  background: #eee;
+  color: #666;
+  font-weight: bold;
 }
 
 .notif-item {

@@ -34,5 +34,6 @@ export interface Notification {
   body: string;
   url: string;
   created: string;
-  seenBy: string[];
+  seenBy?: string[];
+  seen?: boolean;
 }
