@@ -22,7 +22,7 @@ body {
 }
 
 .content {
-  padding: 1rem 1.5rem;
+  padding: 1.5rem;
   max-width: 600px;
   width: 100%;
   margin: 0 auto;

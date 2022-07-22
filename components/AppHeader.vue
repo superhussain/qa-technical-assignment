@@ -1,3 +1,7 @@
+<script setup>
+const { data: auth } = await useAuth();
+</script>
+
 <template>
   <header>
     <NuxtLink to="/">
@@ -8,8 +12,8 @@
     </NuxtLink>
 
     <div>
-      <span>🔔</span>
-      <span>👋</span>
+      <button class="notif-button">🔔</button>
+      <button class="org-button">👋 {{ auth.name }}</button>
     </div>
   </header>
 </template>
@@ -21,5 +25,9 @@ header {
   align-items: center;
   padding: 1rem 1.5rem;
   border-bottom: 1px solid #eee;
+}
+
+.notif-button {
+  margin-right: 0.5rem;
 }
 </style>
