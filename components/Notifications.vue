@@ -1,12 +1,22 @@
 <script setup>
 let open = ref(false);
 const toggleOpen = () => (open.value = !open.value);
-const { data: notifications } = await useFetch('/api/notifications');
-const unread = notifications.value.filter(({ seen }) => !seen);
-const read = notifications.value.filter(({ seen }) => seen);
 
-const handleClickNotif = (notif) => {
-  console.log(notif);
+const { data } = await useFetch('/api/notifications');
+const notifications = reactive(data);
+const unread = computed(() => notifications.value.filter(({ seen }) => !seen));
+const read = computed(() => notifications.value.filter(({ seen }) => seen));
+
+const handleClickNotif = async (notif) => {
+  const data = await $fetch('/api/notification', {
+    method: 'put',
+    body: { notificationId: notif.id },
+  });
+  const index = notifications.value.findIndex(({ id }) => id === data.id);
+  notifications.value[index] = {
+    ...notifications.value[index],
+    seen: data.seen,
+  };
 };
 </script>
 
