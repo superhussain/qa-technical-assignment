@@ -1,6 +1,6 @@
 <script setup>
 const { data: auth } = await useAuth();
-const { data } = await useFetch('/api/campaigns');
+const { data } = await useFetch('/api/discover');
 </script>
 
 <template>
