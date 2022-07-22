@@ -39,5 +39,3 @@ export function updateCurrentOrg(orgId: string) {
   if (index === -1) throw new Error(`Organization "${orgId}" not found`);
   return writeCurrentOrgToFile(orgId);
 }
-
-export default getCurrentOrgObject();

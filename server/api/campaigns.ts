@@ -1,6 +1,6 @@
 import { defineEventHandler } from 'h3';
-import campaigns from '../lib/campaigns';
+import { getCampaigns } from '../lib/campaigns';
 
 export default defineEventHandler((event) => {
-  return campaigns;
+  return getCampaigns();
 });

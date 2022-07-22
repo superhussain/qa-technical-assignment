@@ -67,5 +67,3 @@ export function updateCampaign(campaign: Campaign) {
   writeCampaignsToFile(campaigns);
   return campaign;
 }
-
-export default getCampaigns();

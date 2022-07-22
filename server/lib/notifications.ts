@@ -83,5 +83,3 @@ export function updateNotification(notification: Notification) {
   writeNotificationsToFile(notifications);
   return notification;
 }
-
-export default getNotifications();

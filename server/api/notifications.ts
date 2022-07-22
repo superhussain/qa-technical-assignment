@@ -1,10 +1,11 @@
 import { defineEventHandler } from 'h3';
-import currentOrg from '../lib/currentOrg';
-import notifications from '../lib/notifications';
+import { getCurrentOrgObject } from '../lib/currentOrg';
+import { getNotifications } from '../lib/notifications';
 
 export default defineEventHandler((event) => {
-  return notifications.map(({ seenBy, ...notif }) => ({
+  const org = getCurrentOrgObject();
+  return getNotifications().map(({ seenBy, ...notif }) => ({
     ...notif,
-    seen: seenBy.includes(currentOrg.id),
+    seen: seenBy.includes(org.id),
   }));
 });

@@ -62,5 +62,3 @@ export function updateOrg(org: Org) {
   writeOrgsToFile(orgs);
   return org;
 }
-
-export default getOrgs();
