@@ -1,9 +1,3 @@
-<script setup>
-const { data: auth } = await useAuth();
-const { data: orgs } = await useFetch('/api/orgs');
-const orgId = auth.id;
-</script>
-
 <template>
   <header>
     <NuxtLink to="/">
@@ -14,12 +8,8 @@ const orgId = auth.id;
     </NuxtLink>
 
     <div>
-      <button class="notif-button">🔔</button>
-      <select class="org-switcher" :value="auth.id">
-        <option v-for="org in orgs" :key="org.id" :value="org.id">
-          {{ org.name }}
-        </option>
-      </select>
+      <Notifications />
+      <OrgSwitcher />
     </div>
   </header>
 </template>
@@ -31,13 +21,5 @@ header {
   align-items: center;
   padding: 1rem 1.5rem;
   border-bottom: 1px solid #eee;
-}
-
-.notif-button {
-  margin-right: 0.5rem;
-}
-
-.org-switcher {
-  padding: 0.25rem;
 }
 </style>

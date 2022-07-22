@@ -21,10 +21,11 @@ export function generateNotification(): Notification {
     'cap_reached',
   ]) as NotificationType;
 
-  const title =
+  const title = campaign.name;
+  const body =
     type === 'campaign_status_change'
-      ? `Campaign "${campaign.name}" status changed to ${campaign.status}`
-      : `Campaign "${campaign.name}" cap reached`;
+      ? `Campaign "${campaign.name}" status changed to "${campaign.status}".`
+      : `Campaign "${campaign.name}" cap reached.`;
 
   const id = randUuid();
   return {
@@ -34,7 +35,7 @@ export function generateNotification(): Notification {
     type,
     priority: rand(['urgent', 'normal', 'low']),
     title,
-    body: title,
+    body,
     url: `/campaign/${campaignId}`,
     created: randPastDate().toString(),
     seenBy: [],
