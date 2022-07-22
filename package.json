@@ -7,9 +7,11 @@
     "preview": "nuxt preview"
   },
   "devDependencies": {
+    "@types/lodash-es": "^4.17.6",
     "nuxt": "3.0.0-rc.6"
   },
   "dependencies": {
-    "@ngneat/falso": "^6.0.3"
+    "@ngneat/falso": "^6.0.3",
+    "lodash-es": "^4.17.21"
   }
 }

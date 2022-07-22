@@ -8,8 +8,8 @@
     </NuxtLink>
 
     <div>
-      <span>Notifications dropdown</span>
-      <span>org switcher</span>
+      <span>🔔</span>
+      <span>👋</span>
     </div>
   </header>
 </template>
