@@ -4,6 +4,7 @@ const toggleOpen = () => (open.value = !open.value);
 
 const { data } = await useFetch('/api/notifications');
 const notifications = reactive(data);
+const unreadCount = ref(notifications.value.filter(({ seen }) => !seen).length);
 const unread = computed(() => notifications.value.filter(({ seen }) => !seen));
 const read = computed(() => notifications.value.filter(({ seen }) => seen));
 
@@ -22,7 +23,9 @@ const handleClickNotif = async (notif) => {
 
 <template>
   <div class="notif-wrapper">
-    <button class="notif-button" @click="toggleOpen">🔔</button>
+    <button class="notif-button" @click="toggleOpen">
+      🔔 <span class="badge">{{ unreadCount }}</span>
+    </button>
 
     <div class="notif-list" :class="{ ['open']: true || open }">
       <span class="notif-group-title">Unread Notifications</span>
